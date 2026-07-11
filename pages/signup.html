@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>회원가입 | 굿즈샵</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main>
+    <div class="form-panel">
+      <h2>회원가입</h2>
+      <div id="form-error" class="form-error"></div>
+      <form id="signup-form">
+        <div class="form-field">
+          <label for="email">이메일</label>
+          <input type="email" id="email" required autocomplete="email" />
+        </div>
+        <div class="form-field">
+          <label for="password">비밀번호 (6자 이상)</label>
+          <input type="password" id="password" required minlength="6" autocomplete="new-password" />
+        </div>
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-block">가입하기</button>
+      </form>
+      <div class="form-footer">
+        이미 계정이 있으신가요? <a href="./login.html">로그인</a>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="../js/signup.js"></script>
+</body>
+</html>
