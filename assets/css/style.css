@@ -1,3 +1,16 @@
+/*
+  모바일 우선(mobile-first) 스타일.
+
+  기본 스타일 = 폰 화면 기준.
+  화면이 넓어지면 @media (min-width: ...) 로 하나씩 넓혀갑니다.
+
+  지키는 규칙:
+  - 손으로 누르는 것(버튼/링크)은 최소 44px 높이 — 손가락으로 정확히 누를 수 있는 크기
+  - 본문 글자는 최소 16px — 폰에서 읽을 수 있는 크기
+  - 입력창도 16px — 이보다 작으면 iPhone 이 입력할 때 화면을 멋대로 확대함
+  - 가로 스크롤 금지
+*/
+
 :root {
   --bg: #f7f7fb;
   --panel: #ffffff;
@@ -10,6 +23,7 @@
   --success: #16a34a;
   --pending: #94a3b8;
   --radius: 12px;
+  --tap: 44px; /* 최소 터치 영역 */
 }
 
 * { box-sizing: border-box; }
@@ -19,23 +33,23 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
   line-height: 1.6;
+  -webkit-text-size-adjust: 100%; /* 폰 가로/세로 전환 시 글자 크기 튀는 것 방지 */
+  overflow-x: hidden;             /* 가로 스크롤 방지 */
 }
+
+img { max-width: 100%; }
 
 a { color: inherit; text-decoration: none; }
 
-.wrap {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* nav */
+/* ---------- 상단 네비게이션 ---------- */
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  gap: 12px;
+  padding: 10px 16px;
   background: var(--panel);
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -45,15 +59,34 @@ a { color: inherit; text-decoration: none; }
 
 .nav-brand {
   font-weight: 800;
-  font-size: 18px;
+  font-size: 17px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  min-height: var(--tap);
 }
 
+/* 링크가 많아 폰에서 넘칠 수 있으므로, 넘치면 가로로 스크롤되게 함 */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 4px;
   font-size: 14px;
   color: var(--text-sub);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+
+/* 네비게이션 안의 모든 누를 수 있는 것: 터치 영역 확보 */
+.nav-links a,
+.nav-links button {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 10px;
+  white-space: nowrap;
 }
 
 .nav-links a:hover { color: var(--primary); }
@@ -64,26 +97,26 @@ a { color: inherit; text-decoration: none; }
   font: inherit;
   color: var(--text-sub);
   cursor: pointer;
-  padding: 0;
 }
-
 .nav-link-btn:hover { color: var(--danger); }
 
+/* ---------- 본문 영역 ---------- */
 main {
   max-width: 960px;
   margin: 0 auto;
-  padding: 32px 20px 80px;
+  padding: 24px 16px 64px;
 }
 
-h1 { font-size: 26px; margin: 0 0 8px; }
-h2 { font-size: 20px; margin: 0 0 16px; }
-p.page-sub { color: var(--text-sub); margin: 0 0 28px; }
+h1 { font-size: 24px; margin: 0 0 8px; line-height: 1.3; }
+h2 { font-size: 20px; margin: 0 0 16px; line-height: 1.3; }
+p.page-sub { color: var(--text-sub); margin: 0 0 24px; font-size: 15px; }
 
-/* product grid */
+/* ---------- 상품 목록 ---------- */
+/* 폰: 2열. 화면이 아주 좁으면(360px 미만) 1열로 떨어짐 */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
 }
 
 .product-card {
@@ -103,59 +136,63 @@ p.page-sub { color: var(--text-sub); margin: 0 0 28px; }
 }
 
 .product-card .body {
-  padding: 14px 16px 18px;
+  padding: 12px 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   flex: 1;
 }
 
 .product-card .name { font-weight: 700; font-size: 15px; }
 .product-card .desc { color: var(--text-sub); font-size: 13px; flex: 1; }
-.product-card .price { font-weight: 800; font-size: 16px; }
-.product-card .stock { font-size: 12px; color: var(--text-sub); }
+.product-card .price { font-weight: 800; font-size: 17px; }
+.product-card .stock { font-size: 12px; color: var(--text-sub); margin-bottom: 8px; }
 
-/* buttons */
+/* ---------- 버튼 ---------- */
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);   /* 손가락으로 누를 수 있는 크기 */
   border: none;
   border-radius: 999px;
-  padding: 11px 20px;
+  padding: 10px 20px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
   text-align: center;
-  transition: transform 0.1s ease, opacity 0.15s ease;
+  transition: background 0.15s ease, opacity 0.15s ease;
 }
 
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: var(--primary-dark); }
 .btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
-.btn-block { display: block; width: 100%; }
+.btn-block { display: flex; width: 100%; }
 .btn-ghost {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
 }
 
-/* forms */
+/* ---------- 입력 폼 ---------- */
 .form-panel {
   max-width: 380px;
-  margin: 40px auto 0;
+  margin: 24px auto 0;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 32px 28px;
+  padding: 24px 20px;
 }
 
 .form-field { margin-bottom: 16px; }
-.form-field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.form-field label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
 .form-field input {
   width: 100%;
-  padding: 11px 12px;
+  min-height: var(--tap);
+  padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 16px; /* 16px 미만이면 iPhone 이 입력 시 화면을 확대해버림 */
 }
 .form-field input:focus { outline: 2px solid var(--primary); border-color: transparent; }
 
@@ -165,51 +202,190 @@ p.page-sub { color: var(--text-sub); margin: 0 0 28px; }
   border: 1px solid #fecaca;
   border-radius: 8px;
   padding: 10px 12px;
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 16px;
   display: none;
 }
 .form-error.show { display: block; }
 
-.form-footer { margin-top: 16px; font-size: 13px; color: var(--text-sub); text-align: center; }
+.form-footer { margin-top: 16px; font-size: 14px; color: var(--text-sub); text-align: center; }
+.form-footer a { color: var(--primary); font-weight: 600; }
 
-/* checkout */
+/* ---------- 결제 페이지 ---------- */
+/* 폰에서는 이미지와 글이 세로로 쌓이도록 */
 .checkout-summary {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 12px;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px;
-  margin-bottom: 24px;
+  padding: 16px;
+  margin-bottom: 20px;
 }
 
-.checkout-summary img { width: 84px; height: 84px; border-radius: 8px; object-fit: cover; }
+.checkout-summary img {
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  object-fit: cover;
+}
 
-/* table */
-table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-th, td { padding: 12px 14px; text-align: left; font-size: 13.5px; border-bottom: 1px solid var(--border); }
-th { color: var(--text-sub); font-weight: 600; background: #fafafe; }
-tr:last-child td { border-bottom: none; }
+/* ---------- 표(결제 내역) ---------- */
+/*
+  폰에서는 표를 그대로 두면 7칸이 화면 밖으로 넘칩니다.
+  그래서 폰에서는 각 줄(tr)을 "카드"로 바꿔서 세로로 쌓습니다.
+  각 칸(td) 왼쪽에 항목 이름을 붙이는데, 그 이름은 HTML 의 data-label 속성에서 가져옵니다.
+*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
 
-.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #fff; }
+/* 폰: 표를 카드로 변신 */
+thead { display: none; } /* 표 머리글 숨김 (각 칸이 자기 이름표를 갖게 되므로) */
+
+tbody, tr, td { display: block; width: 100%; }
+
+tr {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  margin-bottom: 12px;
+}
+
+td {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  font-size: 15px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  word-break: break-all;
+}
+
+tr td:last-child { border-bottom: none; }
+
+/* 각 칸 왼쪽에 붙는 항목 이름 (예: "금액") */
+td::before {
+  content: attr(data-label);
+  flex: 0 0 auto;
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
 .badge-PENDING { background: var(--pending); }
 .badge-DONE { background: var(--success); }
 .badge-FAILED { background: var(--danger); }
 
-.empty-state { text-align: center; color: var(--text-sub); padding: 60px 0; }
+.empty-state { text-align: center; color: var(--text-sub); padding: 48px 16px; }
 
+/* ---------- 결제 결과 화면 ---------- */
 .result-box {
   max-width: 420px;
-  margin: 60px auto 0;
+  margin: 32px auto 0;
   text-align: center;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 40px 28px;
+  padding: 32px 20px;
 }
 .result-box .icon { font-size: 42px; margin-bottom: 12px; }
-.result-box dl { text-align: left; margin: 24px 0; font-size: 14px; }
+.result-box dl { text-align: left; margin: 24px 0; font-size: 15px; }
 .result-box dt { color: var(--text-sub); display: inline-block; width: 90px; }
-.result-box dd { display: inline; margin: 0; font-weight: 600; }
+.result-box dd { display: inline; margin: 0; font-weight: 600; word-break: break-all; }
 .result-box dd::after { content: ""; display: block; }
+
+/* =========================================================
+   태블릿 이상 (768px ~)
+   ========================================================= */
+@media (min-width: 768px) {
+  .nav { padding: 12px 24px; }
+  .nav-brand { font-size: 18px; }
+  .nav-links { gap: 10px; overflow-x: visible; }
+
+  main { padding: 32px 24px 80px; }
+
+  h1 { font-size: 28px; }
+
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .product-card .body { padding: 14px 16px 18px; gap: 6px; }
+
+  .form-panel { margin-top: 40px; padding: 32px 28px; }
+
+  /* 결제 요약: 이미지와 글을 가로로 */
+  .checkout-summary {
+    flex-direction: row;
+    gap: 16px;
+    padding: 18px;
+  }
+  .checkout-summary img { width: 84px; height: 84px; max-width: none; }
+
+  /* 표를 다시 "진짜 표"로 되돌림 */
+  table {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  thead { display: table-header-group; }
+  tbody { display: table-row-group; }
+
+  tr {
+    display: table-row;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  th, td {
+    display: table-cell;
+    width: auto;
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    word-break: normal;
+  }
+
+  th {
+    color: var(--text-sub);
+    font-weight: 600;
+    background: #fafafe;
+    white-space: nowrap;
+  }
+
+  td::before { content: none; } /* 항목 이름표 숨김 (표 머리글이 다시 보이므로) */
+
+  tr:last-child td { border-bottom: none; }
+}
+
+/* =========================================================
+   PC (1024px ~)
+   ========================================================= */
+@media (min-width: 1024px) {
+  .product-grid { grid-template-columns: repeat(4, 1fr); }
+}

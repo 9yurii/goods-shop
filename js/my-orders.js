@@ -40,11 +40,11 @@ async function init() {
     .map(
       (o) => `
       <tr>
-        <td>${o.product_name}</td>
-        <td>${won(o.amount)}</td>
-        <td><span class="badge badge-${o.status}">${o.status}</span></td>
-        <td>${o.method ?? "-"}</td>
-        <td>${fmtDate(o.created_at)}</td>
+        <td data-label="상품">${o.product_name}</td>
+        <td data-label="금액">${won(o.amount)}</td>
+        <td data-label="상태"><span class="badge badge-${o.status}">${o.status}</span></td>
+        <td data-label="결제수단">${o.method ?? "-"}</td>
+        <td data-label="주문일시">${fmtDate(o.created_at)}</td>
       </tr>
     `
     )
