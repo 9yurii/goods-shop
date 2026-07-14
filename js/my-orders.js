@@ -15,6 +15,13 @@ function fmtDate(iso) {
   return new Date(iso).toLocaleString("ko-KR");
 }
 
+// HTML 특수문자를 무해한 글자로 바꿉니다 (innerHTML 삽입 시 코드 실행 방지).
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+  );
+}
+
 async function init() {
   const session = await requireAuth("./login.html?redirect=my-orders.html");
   if (!session) return;
@@ -40,10 +47,10 @@ async function init() {
     .map(
       (o) => `
       <tr>
-        <td data-label="상품">${o.product_name}</td>
+        <td data-label="상품">${esc(o.product_name)}</td>
         <td data-label="금액">${won(o.amount)}</td>
-        <td data-label="상태"><span class="badge badge-${o.status}">${o.status}</span></td>
-        <td data-label="결제수단">${o.method ?? "-"}</td>
+        <td data-label="상태"><span class="badge badge-${esc(o.status)}">${esc(o.status)}</span></td>
+        <td data-label="결제수단">${esc(o.method ?? "-")}</td>
         <td data-label="주문일시">${fmtDate(o.created_at)}</td>
       </tr>
     `

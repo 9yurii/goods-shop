@@ -10,17 +10,26 @@ function won(n) {
   return Number(n).toLocaleString("ko-KR") + "원";
 }
 
+// HTML 특수문자를 무해한 글자로 바꿉니다 (innerHTML 삽입 시 코드 실행 방지).
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+  );
+}
+
 function renderSuccess(order) {
+  // 영수증 링크는 http(s) 주소일 때만 겁니다 (javascript: 같은 위험한 주소 차단).
+  const receiptOk = /^https?:\/\//i.test(order.receipt_url ?? "");
   box.innerHTML = `
     <div class="icon">✅</div>
     <h2>결제가 완료됐습니다</h2>
     <dl>
-      <div><dt>상품</dt><dd>${order.product_name}</dd></div>
+      <div><dt>상품</dt><dd>${esc(order.product_name)}</dd></div>
       <div><dt>결제 금액</dt><dd>${won(order.amount)}</dd></div>
-      <div><dt>주문번호</dt><dd style="font-size:12px;">${order.order_id}</dd></div>
-      ${order.method ? `<div><dt>결제수단</dt><dd>${order.method}</dd></div>` : ""}
+      <div><dt>주문번호</dt><dd style="font-size:12px;">${esc(order.order_id)}</dd></div>
+      ${order.method ? `<div><dt>결제수단</dt><dd>${esc(order.method)}</dd></div>` : ""}
     </dl>
-    ${order.receipt_url ? `<a class="btn btn-ghost" href="${order.receipt_url}" target="_blank" rel="noopener">영수증 보기</a>` : ""}
+    ${receiptOk ? `<a class="btn btn-ghost" href="${esc(order.receipt_url)}" target="_blank" rel="noopener">영수증 보기</a>` : ""}
     <a class="btn btn-primary btn-block" style="margin-top:12px;" href="./my-orders.html">내 결제 내역 보기</a>
   `;
 }
@@ -29,7 +38,7 @@ function renderFail(message) {
   box.innerHTML = `
     <div class="icon">❌</div>
     <h2>결제에 실패했습니다</h2>
-    <p style="color:var(--text-sub);">${message}</p>
+    <p style="color:var(--text-sub);">${esc(message)}</p>
     <a class="btn btn-primary btn-block" style="margin-top:20px;" href="../index.html">상품 목록으로</a>
   `;
 }
