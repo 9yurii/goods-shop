@@ -10,14 +10,14 @@ export async function renderNav(basePath) {
 
   let rightLinks = `
     <a href="${basePath}pages/login.html">로그인</a>
-    <a href="${basePath}pages/signup.html">회원가입</a>
+    <a class="nav-cta" href="${basePath}pages/signup.html">회원가입</a>
   `;
 
   if (session) {
     let adminLink = "";
     const { data: isAdmin } = await supabase.rpc("is_admin");
     if (isAdmin) {
-      adminLink = `<a href="${basePath}pages/admin.html">관리자</a>`;
+      adminLink = `<a class="nav-admin" href="${basePath}pages/admin.html">관리자</a>`;
     }
     rightLinks = `
       ${adminLink}
@@ -28,7 +28,9 @@ export async function renderNav(basePath) {
 
   el.innerHTML = `
     <nav class="nav">
-      <a class="nav-brand" href="${basePath}index.html">🛍️ 굿즈샵</a>
+      <a class="nav-brand" href="${basePath}index.html">
+        <span class="nav-logo">🛍️</span>굿즈샵
+      </a>
       <div class="nav-links">${rightLinks}</div>
     </nav>
   `;

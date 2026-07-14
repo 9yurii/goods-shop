@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="개발자 스티커팩">
+  <rect width="400" height="400" fill="#fdf2f8"/>
+  <circle cx="200" cy="200" r="128" fill="#fce7f3"/>
+
+  <!-- 스티커 4장이 겹쳐 있는 모습 -->
+  <g stroke="#ffffff" stroke-width="8">
+    <!-- 뒤쪽: 하늘색 -->
+    <rect x="96" y="96" width="120" height="120" rx="24" fill="#38bdf8" transform="rotate(-11 156 156)"/>
+    <!-- 뒤쪽: 노랑 -->
+    <rect x="188" y="106" width="118" height="118" rx="24" fill="#fbbf24" transform="rotate(9 247 165)"/>
+    <!-- 앞쪽: 초록 -->
+    <rect x="104" y="196" width="116" height="116" rx="24" fill="#34d399" transform="rotate(7 162 254)"/>
+    <!-- 앞쪽: 보라 -->
+    <rect x="192" y="192" width="120" height="120" rx="24" fill="#8b5cf6" transform="rotate(-8 252 252)"/>
+  </g>
+
+  <!-- 스티커에 그려진 기호들 -->
+  <g font-family="monospace" font-weight="700" text-anchor="middle" fill="#ffffff">
+    <text x="156" y="172" font-size="40" transform="rotate(-11 156 156)">{ }</text>
+    <text x="247" y="182" font-size="40" transform="rotate(9 247 165)">&lt;/&gt;</text>
+    <text x="162" y="270" font-size="40" transform="rotate(7 162 254)">#!</text>
+    <text x="252" y="268" font-size="40" transform="rotate(-8 252 252)">$_</text>
+  </g>
+</svg>

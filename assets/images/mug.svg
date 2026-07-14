@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="코드 머그컵">
+  <rect width="400" height="400" fill="#f5f3ff"/>
+  <circle cx="200" cy="200" r="128" fill="#ede9fe"/>
+
+  <!-- 김 -->
+  <g stroke="#c4b5fd" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.9">
+    <path d="M168 112 Q156 94 168 76 Q180 58 168 42"/>
+    <path d="M206 106 Q194 88 206 70 Q218 52 206 36"/>
+    <path d="M244 112 Q232 94 244 76 Q256 58 244 42"/>
+  </g>
+
+  <!-- 손잡이 -->
+  <path d="M282 190 h20 a40 40 0 0 1 0 80 h-20" fill="none" stroke="#7c3aed" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- 컵 몸통 -->
+  <path d="M112 156 h174 v128 a34 34 0 0 1 -34 34 h-106 a34 34 0 0 1 -34 -34 Z" fill="#7c3aed"/>
+  <path d="M112 156 h48 v162 h-14 a34 34 0 0 1 -34 -34 Z" fill="#6d28d9"/>
+  <!-- 컵 입구 -->
+  <ellipse cx="199" cy="156" rx="87" ry="16" fill="#a78bfa"/>
+  <ellipse cx="199" cy="156" rx="72" ry="10" fill="#4c1d95"/>
+
+  <!-- 컵에 새긴 코드 -->
+  <text x="199" y="252" font-family="monospace" font-size="42" font-weight="700"
+        fill="#ede9fe" text-anchor="middle">&lt;/&gt;</text>
+</svg>

@@ -46,8 +46,16 @@ async function init() {
     return;
   }
 
+  // DB의 image_url 은 "assets/images/tshirt.svg" 처럼 사이트 최상단 기준입니다.
+  // 이 페이지는 pages/ 폴더 안에 있으므로 한 단계 위로 올라가는 "../" 를 붙입니다.
+  const imgSrc = !product.image_url
+    ? ""
+    : product.image_url.startsWith("http")
+      ? product.image_url
+      : `../${product.image_url}`;
+
   summaryBox.innerHTML = `
-    <img src="${product.image_url ?? ""}" alt="${product.name}" />
+    <img src="${imgSrc}" alt="${product.name}" />
     <div>
       <div style="font-weight:700;">${product.name}</div>
       <div style="color:var(--text-sub); font-size:13px; margin:4px 0;">${product.description ?? ""}</div>

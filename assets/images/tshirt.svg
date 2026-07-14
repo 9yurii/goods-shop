@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="바이브코딩 티셔츠">
+  <rect width="400" height="400" fill="#eef2ff"/>
+  <circle cx="200" cy="200" r="128" fill="#e0e7ff"/>
+
+  <!-- 티셔츠 몸통 + 소매 -->
+  <path d="M152 92 L120 108 L86 150 L118 184 L140 164 L140 306 Q140 316 150 316 L250 316 Q260 316 260 306 L260 164 L282 184 L314 150 L280 108 L248 92 Z"
+        fill="#4f46e5"/>
+  <!-- 목선 -->
+  <path d="M152 92 Q200 130 248 92 Q224 108 200 108 Q176 108 152 92 Z" fill="#3730a3"/>
+  <!-- 접힌 그림자 -->
+  <path d="M140 164 L140 306 Q140 316 150 316 L172 316 L172 176 Z" fill="#4338ca" opacity="0.35"/>
+
+  <!-- 가슴의 작은 로고 -->
+  <text x="200" y="228" font-family="monospace" font-size="46" font-weight="700"
+        fill="#c7d2fe" text-anchor="middle">&lt;/&gt;</text>
+</svg>

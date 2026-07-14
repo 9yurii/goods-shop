@@ -19,11 +19,18 @@
   --text-sub: #6b6b7b;
   --primary: #4f46e5;
   --primary-dark: #4338ca;
+  --primary-soft: #eef2ff; /* 아주 연한 보라 — 강조 배경용 */
   --danger: #e11d48;
   --success: #16a34a;
   --pending: #94a3b8;
   --radius: 12px;
+  --radius-lg: 20px;
   --tap: 44px; /* 최소 터치 영역 */
+
+  /* 그림자: 요소를 살짝 떠 보이게 함 */
+  --shadow-sm: 0 1px 2px rgba(28, 28, 40, 0.06);
+  --shadow-md: 0 6px 20px rgba(28, 28, 40, 0.08);
+  --shadow-lg: 0 18px 40px rgba(28, 28, 40, 0.12);
 }
 
 * { box-sizing: border-box; }
@@ -44,13 +51,19 @@ img { max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 
 /* ---------- 상단 네비게이션 ---------- */
+/*
+  반투명 흰 배경 + backdrop-filter(뒤에 깔린 것을 흐리게 하는 효과)로
+  스크롤할 때 내용이 헤더 뒤로 은은하게 비쳐 보이게 합니다.
+*/
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 16px;
-  background: var(--panel);
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -60,18 +73,33 @@ a { color: inherit; text-decoration: none; }
 .nav-brand {
   font-weight: 800;
   font-size: 17px;
+  letter-spacing: -0.02em;
   white-space: nowrap;
   display: flex;
   align-items: center;
+  gap: 8px;
   min-height: var(--tap);
+}
+
+/* 로고 이모지를 동그란 배지 안에 넣어 정돈해 보이게 */
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--primary-soft);
+  font-size: 16px;
 }
 
 /* 링크가 많아 폰에서 넘칠 수 있으므로, 넘치면 가로로 스크롤되게 함 */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   font-size: 14px;
+  font-weight: 600;
   color: var(--text-sub);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -84,12 +112,27 @@ a { color: inherit; text-decoration: none; }
 .nav-links button {
   display: flex;
   align-items: center;
-  min-height: var(--tap);
-  padding: 0 10px;
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 999px;
   white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-.nav-links a:hover { color: var(--primary); }
+.nav-links a:hover {
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+/* 회원가입: 눈에 띄는 알약 버튼 */
+.nav-cta {
+  background: var(--text);
+  color: #fff;
+}
+.nav-cta:hover { background: var(--primary); color: #fff; }
+
+/* 관리자 링크: 다른 메뉴와 구분되도록 */
+.nav-admin { color: var(--primary); }
 
 .nav-link-btn {
   background: none;
@@ -98,7 +141,80 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-sub);
   cursor: pointer;
 }
-.nav-link-btn:hover { color: var(--danger); }
+.nav-link-btn:hover { color: var(--danger); background: #fef2f2; }
+
+/* ---------- 히어로 (홈 상단 대문) ---------- */
+/*
+  화면 전체 너비를 쓰는 어두운 영역입니다.
+  radial-gradient 두 개를 겹쳐 은은한 빛 번짐을 만듭니다.
+*/
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 80% at 15% 0%, #6366f1 0%, transparent 60%),
+    radial-gradient(70% 70% at 100% 100%, #a855f7 0%, transparent 55%),
+    linear-gradient(160deg, #23233a 0%, #171728 100%);
+  color: #fff;
+  text-align: center;
+  padding: 48px 20px 52px;
+}
+
+.hero-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  margin: 0 0 14px;
+}
+
+/* <em> 부분만 색을 입혀 강조 (기울임은 끔) */
+.hero-title em {
+  font-style: normal;
+  background: linear-gradient(90deg, #c7d2fe, #f0abfc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-sub {
+  margin: 0 0 26px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- 섹션 제목 ---------- */
+.section-head { margin-bottom: 20px; }
+.section-head h2 {
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+.section-head .page-sub { margin: 0; }
 
 /* ---------- 본문 영역 ---------- */
 main {
@@ -122,10 +238,22 @@ p.page-sub { color: var(--text-sub); margin: 0 0 24px; font-size: 15px; }
 .product-card {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+/* 마우스를 올리면 살짝 떠오름 (터치 기기에서는 나타나지 않음) */
+@media (hover: hover) {
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: #d8d8ea;
+  }
+  .product-card:hover img { transform: scale(1.04); }
 }
 
 .product-card img {
@@ -133,6 +261,7 @@ p.page-sub { color: var(--text-sub); margin: 0 0 24px; font-size: 15px; }
   aspect-ratio: 1 / 1;
   object-fit: cover;
   background: #eee;
+  transition: transform 0.35s ease;
 }
 
 .product-card .body {
@@ -164,9 +293,18 @@ p.page-sub { color: var(--text-sub); margin: 0 0 24px; font-size: 15px; }
   transition: background 0.15s ease, opacity 0.15s ease;
 }
 
-.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.28);
+}
 .btn-primary:hover { background: var(--primary-dark); }
-.btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  box-shadow: none;
+}
 .btn-block { display: flex; width: 100%; }
 .btn-ghost {
   background: transparent;
@@ -174,14 +312,58 @@ p.page-sub { color: var(--text-sub); margin: 0 0 24px; font-size: 15px; }
   color: var(--text);
 }
 
+/* 히어로 위(어두운 배경)에 올라가는 보조 버튼 */
+.btn-hero-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+.btn-hero-ghost:hover { background: rgba(255, 255, 255, 0.18); }
+
 /* ---------- 입력 폼 ---------- */
+/*
+  로그인/회원가입 화면.
+  main.auth 는 카드가 화면 가운데쯤에 오도록 위쪽 여백을 조금 더 줍니다.
+*/
+main.auth { padding-top: 32px; }
+
 .form-panel {
-  max-width: 380px;
-  margin: 24px auto 0;
+  max-width: 400px;
+  margin: 0 auto;
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px 20px;
+  border-radius: var(--radius-lg);
+  padding: 28px 22px;
+  box-shadow: var(--shadow-md);
+}
+
+.auth-head { text-align: center; margin-bottom: 24px; }
+
+/* 카드 맨 위의 동그란 로고 */
+.auth-mark {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  font-size: 26px;
+  background: linear-gradient(160deg, #6366f1, #a855f7);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+}
+
+.auth-head h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.auth-sub {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .form-field { margin-bottom: 16px; }
@@ -189,12 +371,24 @@ p.page-sub { color: var(--text-sub); margin: 0 0 24px; font-size: 15px; }
 .form-field input {
   width: 100%;
   min-height: var(--tap);
-  padding: 10px 12px;
+  padding: 10px 14px;
+  background: #fbfbfe;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px; /* 16px 미만이면 iPhone 이 입력 시 화면을 확대해버림 */
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
-.form-field input:focus { outline: 2px solid var(--primary); border-color: transparent; }
+.form-field input::placeholder { color: #a6a6b8; }
+
+/* 입력창을 누르면 보라색 테두리 + 은은한 링 */
+.form-field input:focus {
+  outline: none;
+  background: var(--panel);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+}
+
+.form-panel .btn-primary { margin-top: 4px; }
 
 .form-error {
   background: #fef2f2;
@@ -208,8 +402,16 @@ p.page-sub { color: var(--text-sub); margin: 0 0 24px; font-size: 15px; }
 }
 .form-error.show { display: block; }
 
-.form-footer { margin-top: 16px; font-size: 14px; color: var(--text-sub); text-align: center; }
+.form-footer {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-sub);
+  text-align: center;
+}
 .form-footer a { color: var(--primary); font-weight: 600; }
+.form-footer a:hover { text-decoration: underline; }
 
 /* ---------- 결제 페이지 ---------- */
 /* 폰에서는 이미지와 글이 세로로 쌓이도록 */
@@ -316,13 +518,29 @@ td::before {
    태블릿 이상 (768px ~)
    ========================================================= */
 @media (min-width: 768px) {
-  .nav { padding: 12px 24px; }
+  .nav { padding: 10px 24px; }
   .nav-brand { font-size: 18px; }
-  .nav-links { gap: 10px; overflow-x: visible; }
+  .nav-links { gap: 6px; overflow-x: visible; }
 
   main { padding: 32px 24px 80px; }
 
   h1 { font-size: 28px; }
+
+  /* 히어로: 넓은 화면에서 시원하게 */
+  .hero { padding: 80px 24px 88px; }
+  .hero-title { font-size: 44px; }
+  .hero-sub { font-size: 17px; margin-bottom: 32px; }
+  .hero-badge { font-size: 13px; }
+
+  /* 버튼 두 개를 가로로 나란히 */
+  .hero-actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+  }
+  .hero-actions .btn { padding: 12px 28px; }
+
+  .section-head { margin-bottom: 24px; }
 
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -331,7 +549,8 @@ td::before {
 
   .product-card .body { padding: 14px 16px 18px; gap: 6px; }
 
-  .form-panel { margin-top: 40px; padding: 32px 28px; }
+  main.auth { padding-top: 56px; }
+  .form-panel { padding: 36px 32px; }
 
   /* 결제 요약: 이미지와 글을 가로로 */
   .checkout-summary {
@@ -388,4 +607,15 @@ td::before {
    ========================================================= */
 @media (min-width: 1024px) {
   .product-grid { grid-template-columns: repeat(4, 1fr); }
+
+  .hero { padding: 100px 24px 108px; }
+  .hero-title { font-size: 52px; }
+}
+
+/*
+  "동작 줄이기"를 켜 둔 사용자를 위해 움직임을 끕니다.
+  (기기 설정에서 애니메이션을 싫어한다고 밝힌 사람들)
+*/
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }

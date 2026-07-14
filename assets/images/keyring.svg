@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="미니 키링">
+  <rect width="400" height="400" fill="#fff7ed"/>
+  <circle cx="200" cy="200" r="128" fill="#ffedd5"/>
+
+  <!-- 고리 -->
+  <circle cx="200" cy="118" r="42" fill="none" stroke="#a1a1aa" stroke-width="14"/>
+  <!-- 연결 사슬 -->
+  <rect x="192" y="152" width="16" height="34" rx="8" fill="#d4d4d8"/>
+
+  <!-- 아크릴 참(태그) -->
+  <rect x="128" y="182" width="144" height="120" rx="26" fill="#f97316"/>
+  <rect x="128" y="182" width="144" height="120" rx="26" fill="none" stroke="#ea580c" stroke-width="6"/>
+  <!-- 아크릴의 반짝임 -->
+  <path d="M148 296 L216 190 h22 L170 300 Z" fill="#ffffff" opacity="0.18"/>
+  <!-- 구멍 -->
+  <circle cx="200" cy="200" r="9" fill="#fff7ed"/>
+
+  <!-- 태그에 새긴 코드 -->
+  <text x="200" y="272" font-family="monospace" font-size="44" font-weight="700"
+        fill="#ffffff" text-anchor="middle">&lt;/&gt;</text>
+</svg>

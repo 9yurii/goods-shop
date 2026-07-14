@@ -9,6 +9,13 @@ function won(n) {
   return Number(n).toLocaleString("ko-KR") + "원";
 }
 
+// DB의 image_url 은 "assets/images/tshirt.svg" 처럼 사이트 최상단 기준으로 저장돼 있습니다.
+// 이 파일(index.html)은 최상단에 있으므로 앞에 "./" 를 붙입니다.
+function imgSrc(url) {
+  if (!url) return "";
+  return url.startsWith("http") ? url : `./${url}`;
+}
+
 async function loadProducts() {
   const { data: products, error } = await supabase
     .from("products")
@@ -30,7 +37,7 @@ async function loadProducts() {
       const soldOut = p.stock <= 0;
       return `
         <div class="product-card">
-          <img src="${p.image_url ?? ""}" alt="${p.name}" loading="lazy" />
+          <img src="${imgSrc(p.image_url)}" alt="${p.name}" loading="lazy" />
           <div class="body">
             <div class="name">${p.name}</div>
             <div class="desc">${p.description ?? ""}</div>

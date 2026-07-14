@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="바이브코딩 에코백">
+  <rect width="400" height="400" fill="#f0fdf4"/>
+  <circle cx="200" cy="200" r="128" fill="#dcfce7"/>
+
+  <!-- 손잡이 -->
+  <path d="M152 130 v-14 a48 48 0 0 1 96 0 v14"
+        fill="none" stroke="#a8a29e" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- 가방 몸통 (캔버스 천 느낌) -->
+  <path d="M106 130 h188 l16 176 a12 12 0 0 1 -12 13 h-196 a12 12 0 0 1 -12 -13 Z" fill="#e7e5e4"/>
+  <!-- 왼쪽 그늘 -->
+  <path d="M106 130 h52 v189 h-64 a12 12 0 0 1 -12 -13 Z" fill="#d6d3d1"/>
+  <!-- 윗단 접힘 -->
+  <path d="M106 130 h188 l2 22 h-192 Z" fill="#c8c5c2"/>
+
+  <!-- 가방에 프린트된 글자 -->
+  <text x="200" y="232" font-family="monospace" font-size="34" font-weight="700"
+        fill="#15803d" text-anchor="middle">vibe</text>
+  <text x="200" y="272" font-family="monospace" font-size="34" font-weight="700"
+        fill="#166534" text-anchor="middle">coding</text>
+</svg>

@@ -9,12 +9,28 @@
 <body>
   <div id="nav-placeholder"></div>
 
-  <main>
-    <h1>굿즈샵</h1>
-    <p class="page-sub">코딩 좋아하는 사람을 위한 작은 굿즈들 (테스트 결제 모드)</p>
-    <div id="product-grid" class="product-grid">
-      <p class="empty-state">상품을 불러오는 중...</p>
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-badge">토스페이먼츠 테스트 모드 · 실제 청구 없음</span>
+      <h1 class="hero-title">코딩하는 사람을 위한<br /><em>작은 굿즈들</em></h1>
+      <p class="hero-sub">티셔츠, 에코백, 스티커, 머그컵, 키링.<br />마음에 드는 걸 고르고 바로 결제하세요.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#products">굿즈 구경하기</a>
+        <a class="btn btn-hero-ghost" href="./pages/my-orders.html">내 결제 내역</a>
+      </div>
     </div>
+  </section>
+
+  <main>
+    <section id="products">
+      <div class="section-head">
+        <h2>전체 상품</h2>
+        <p class="page-sub">구매하기를 누르면 바로 결제 화면으로 넘어갑니다. (장바구니 없이 단품 구매)</p>
+      </div>
+      <div id="product-grid" class="product-grid">
+        <p class="empty-state">상품을 불러오는 중...</p>
+      </div>
+    </section>
   </main>
 
   <script type="module" src="./js/products.js"></script>
